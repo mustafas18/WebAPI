@@ -2,9 +2,7 @@
 WebAPI Sample Using ASP.NET Core 6
 
 ## Project Descriptions
-In this project, I create a Web API with ASP.NET Core 6. This project is based in n-layer n-tier architecture.
-Authentication And Authorization In .NET Core Web API Using JWT Token
-Using Swagger UI
+In this project, I create a Web API using ASP.NET Core 6.
 
 ## Packages used in this project
 - Microsoft.AspNetCore.Authentication.JwtBearer

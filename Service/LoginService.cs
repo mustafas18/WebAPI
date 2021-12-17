@@ -20,8 +20,8 @@ namespace Logic.Services
             try
             {
                 var user = await _userManager.FindByNameAsync(LoginUser.UserName);
-                //if (user == null || !await _userManager.CheckPasswordAsync(user, LoginUser.Password))
-                //    return new LoginResponceDTO { IsAuthSuccessful = false, ErrorMessage = "Invalid Authentication" };
+                if (user == null || !await _userManager.CheckPasswordAsync(user, LoginUser.Password))
+                    return new LoginResponceDTO { IsAuthSuccessful = false, ErrorMessage = "Invalid Authentication" };
 
                 var signingCredentials = _jwtHandler.GetSigningCredentials();
                 var claims = _jwtHandler.GetClaims(user);
@@ -30,12 +30,12 @@ namespace Logic.Services
 
                 return new LoginResponceDTO { IsAuthSuccessful = true, Token = "Bearer " + token };
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return new LoginResponceDTO { IsAuthSuccessful = false,ErrorMessage=ex.Message };
+                return new LoginResponceDTO { IsAuthSuccessful = false, ErrorMessage = ex.Message };
             }
-          
+
 
         }
-        }
+    }
 }

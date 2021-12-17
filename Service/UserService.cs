@@ -12,7 +12,7 @@ using WebAPI.DAL;
 
 namespace Logic.Services
 {
-    public class UserService :IUserService
+    public class UserService : IUserService
     {
         private readonly AppDBContext _context;
         private readonly UserManager<User> _userManager;
@@ -31,15 +31,15 @@ namespace Logic.Services
 
                     User newUser = new User();
                     newUser.UserName = user.UserName;
-                   
+
                     await _userManager.CreateAsync(newUser, user.Password);
-                    //await _userManager.AddToRoleAsync(newUser, "ADMIN");
-                  
-                    return new ServiceResponceDTO { IsSuccessful=true};
+                    await _userManager.AddToRoleAsync(newUser, "admin");
+
+                    return new ServiceResponceDTO { IsSuccessful = true };
                 }
                 else
                 {
-                    return new ServiceResponceDTO { IsSuccessful = true, ErrorMessage= "The user is exists." };
+                    return new ServiceResponceDTO { IsSuccessful = true, ErrorMessage = "The user is exists." };
                 }
 
             }

@@ -22,10 +22,10 @@ namespace WebAPI.Controllers
         [HttpPost]
         [Route("GetAuthorization")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetAuthorization([FromBody] UserDTO LoginUser)
+        public async Task<IActionResult> GetAuthorizationAsync([FromBody] UserDTO LoginUser)
         {
 
-            LoginResponceDTO loginResponce = await _loginServicer.GetAuthorization(LoginUser);
+            LoginResponceDTO loginResponce = await _loginServicer.GetAuthorizationAsync(LoginUser);
 
             if (loginResponce.IsAuthSuccessful)
             {

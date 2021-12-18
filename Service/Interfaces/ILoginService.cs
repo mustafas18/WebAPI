@@ -4,6 +4,6 @@ namespace Logic.Interfaces
 {
     public interface ILoginService
     {
-        Task<LoginResponceDTO> GetAuthorization(UserDTO LoginUser);
+        Task<LoginResponceDTO> GetAuthorizationAsync(UserDTO LoginUser);
     }
 }

@@ -20,7 +20,7 @@ namespace Logic.Services
         /// </summary>
         /// <param name="LoginUser"></param>
         /// <returns>Access token</returns>
-        public async Task<LoginResponceDTO> GetAuthorization(UserDTO LoginUser)
+        public async Task<LoginResponceDTO> GetAuthorizationAsync(UserDTO LoginUser)
         {
             try
             {

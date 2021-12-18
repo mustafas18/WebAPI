@@ -19,23 +19,24 @@ namespace UnitTest
         [Fact]
         public async void LoginService_Should_Return_jwtToken()
         {
-            // Arrange
-            Mock<ILoginService> loginService = new Mock<ILoginService>();
-            string Token=null;
+
+            Mock<UserManager<User>> userManagerMock = new Mock<UserManager<User>>();
+            Mock<JwtHandler> jwtHandlerMock = new Mock<JwtHandler> ();
+
+            LoginService loginService = new LoginService(userManagerMock.Object,
+                jwtHandlerMock.Object);
+
             UserDTO userDTO = new UserDTO
             {
                 UserName = "ali",
                 Password = "P@ssw0rd123456"
             };
-            var expected=new LoginResponceDTO();
-            loginService.Setup(x => x.GetAuthorizationAsync(userDTO)).ReturnsAsync(expected);
+            var expected =await loginService.GetAuthorizationAsync(userDTO);
 
-            // Act
-            User user = new User();
-            List<Claim> claims = new List<Claim>();
-     
+            string Token=null;
+  
 
-            // Assert
+
             Assert.Equal(expected.Token, "Bearer " + Token);
 
         }

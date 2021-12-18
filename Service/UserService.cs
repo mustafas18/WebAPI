@@ -52,7 +52,10 @@ namespace Logic.Services
 
         }
 
-
+        /// <summary>
+        /// List all users
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<User> GetUserList()
         {
             return _context.Users.ToList();

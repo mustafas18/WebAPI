@@ -15,6 +15,11 @@ namespace Logic.Services
             _userManager = userManager;
             _jwtHandler = jwtHandler;
         }
+        /// <summary>
+        /// Get Authorization
+        /// </summary>
+        /// <param name="LoginUser"></param>
+        /// <returns>Access token</returns>
         public async Task<LoginResponceDTO> GetAuthorization(UserDTO LoginUser)
         {
             try

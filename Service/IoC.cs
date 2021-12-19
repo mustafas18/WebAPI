@@ -11,10 +11,10 @@ namespace Logic.Services
     {
         public static void AddMyServices(this IServiceCollection services)
         {
-           services.AddIdentity<User, IdentityRole>()
-            .AddEntityFrameworkStores<AppDBContext>()
-              .AddDefaultTokenProviders(); ;
-            services.AddScoped<JwtHandler>();
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<AppDBContext>()
+                .AddDefaultTokenProviders(); 
+            services.AddScoped<IJwtHandler,JwtHandler>();
             services.AddScoped<ILoginService,LoginService>();
             services.AddScoped<IUserService, UserService>();
 

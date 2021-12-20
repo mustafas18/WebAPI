@@ -9,8 +9,8 @@ namespace Logic.Services
     public class LoginService : ILoginService
     {
         private readonly UserManager<User> _userManager;
-        private readonly JwtHandler _jwtHandler;
-        public LoginService(UserManager<User> userManager, JwtHandler jwtHandler)
+        private readonly IJwtHandler _jwtHandler;
+        public LoginService(UserManager<User> userManager, IJwtHandler jwtHandler)
         {
             _userManager = userManager;
             _jwtHandler = jwtHandler;

@@ -21,8 +21,9 @@ namespace UnitTest
         public async void LoginService_Should_Return_jwtToken()
         {
 
-            Mock<UserManager<User>> userManagerMock = new Mock<UserManager<User>>();
-            Mock<JwtHandler> jwtHandlerMock = new Mock<JwtHandler>();
+            Mock<FakeUserManager> userManagerMock = new Mock<FakeUserManager>();
+            Mock<IJwtHandler> jwtHandlerMock = new Mock<IJwtHandler>();
+
             User user = new User();
             var claims = new List<Claim>();
             JwtSecurityToken tokenOptions=new JwtSecurityToken ();

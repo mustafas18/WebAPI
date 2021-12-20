@@ -20,6 +20,7 @@ namespace WebAPI.Controllers
         }
 
         [Route("GetUserList")]
+        [AllowAnonymous]
         [HttpGet]
         public IEnumerable<User> GetUserList()
         {

@@ -9,7 +9,7 @@ using WebAPI.Core.Model;
 
 namespace Logic.Services
 {
-    public class JwtHandler : IJwtHandler
+    public class JwtHandler:IJwtHandler
     {
         private readonly IConfiguration _configuration;
         private readonly IConfigurationSection _jwtSettings;

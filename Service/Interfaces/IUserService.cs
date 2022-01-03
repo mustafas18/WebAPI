@@ -13,5 +13,6 @@ namespace Logic.Interfaces
     {
         Task<ServiceResponceDTO> CreateUser(UserDTO user);
         IEnumerable<User> GetUserList();
+        User GetUser(string id);
     }
 }

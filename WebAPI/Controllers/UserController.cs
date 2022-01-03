@@ -26,7 +26,13 @@ namespace WebAPI.Controllers
         {
             return _userService.GetUserList();
         }
-
+        [Route("{id?}")]
+        [AllowAnonymous]
+        [HttpGet]
+        public User GetUser(string id)
+        {
+            return _userService.GetUser(id);
+        }
         [Route("CreateUser")]
         [AllowAnonymous]
         [HttpPost]

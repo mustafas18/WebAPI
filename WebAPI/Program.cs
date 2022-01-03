@@ -51,11 +51,20 @@ builder.Services.AddSwaggerGen(c =>
 ConfigurationManager configuration = builder.Configuration;
 
 builder.Services.AddDbContext<AppDBContext>(options =>
-               options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=WebAPI;Trusted_Connection=True;MultipleActiveResultSets=true")
+               options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
                , optionsLifetime: ServiceLifetime.Scoped);
 
 
 builder.Services.AddMyServices();
+
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("myCorsPolicy", policy =>
+    {
+        policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200",
+                                                                "http://example.com");
+    });
+});
 
 var jwtSettings = configuration.GetSection("JwtSettings");
 builder.Services.AddAuthentication(opt =>
@@ -84,6 +93,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseStaticFiles();
+app.UseCors("myCorsPolicy");
 
 app.UseHttpsRedirection();
 

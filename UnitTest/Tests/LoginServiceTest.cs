@@ -24,26 +24,34 @@ namespace UnitTest
             Mock<FakeUserManager> userManagerMock = new Mock<FakeUserManager>();
             Mock<IJwtHandler> jwtHandlerMock = new Mock<IJwtHandler>();
 
-            User user = new User();
+
+
             var claims = new List<Claim>();
-            JwtSecurityToken tokenOptions=new JwtSecurityToken ();
+            JwtSecurityToken tokenOptions = new JwtSecurityToken();
             var key = Encoding.UTF8.GetBytes("secretSecuretyKey");
             var secret = new SymmetricSecurityKey(key);
-            SigningCredentials signingCredentials=new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
+            SigningCredentials signingCredentials = new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
 
             UserDTO userDTO = new UserDTO
             {
                 UserName = "ali",
                 Password = "P@ssw0rd123456"
             };
+
+            User user =new User {UserName= userDTO.UserName ,PasswordHash= "secret" };
+
+            userManagerMock.Setup(p => p.CheckPasswordAsync(user,userDTO.UserName)).ReturnsAsync(true);
+
+            jwtHandlerMock.Setup(p => p.GetClaims(user)).Returns(new List<Claim> { new Claim(ClaimTypes.Name, user.UserName) });
+            jwtHandlerMock.Setup(x => x.GenerateTokenOptions(signingCredentials, claims)).Returns(tokenOptions);
+  
+
             LoginService loginService = new LoginService(userManagerMock.Object,
                 jwtHandlerMock.Object);
             var expected = await loginService.GetAuthorizationAsync(userDTO);
 
-            userManagerMock.Setup(x => x.FindByNameAsync(userDTO.UserName)).ReturnsAsync(user);
-            jwtHandlerMock.Setup(x => x.GetClaims(user)).Returns(claims);
-            jwtHandlerMock.Setup(x => x.GenerateTokenOptions(signingCredentials, claims)).Returns(tokenOptions);
-            var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+          
+             var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
 
 
             Assert.Equal(expected.Token, "Bearer " + token);

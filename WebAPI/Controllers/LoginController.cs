@@ -19,6 +19,14 @@ namespace WebAPI.Controllers
         {
             _loginServicer = loginService;
         }
+        /// <summary>
+        /// Login User and get access token
+        /// </summary>
+        /// <remarks>
+        /// This method signin the user and returns access token
+        /// </remarks>
+        /// <param name="LoginUser"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("GetAuthorization")]
         [AllowAnonymous]

@@ -12,3 +12,4 @@ In this project, I create a Web API using ASP.NET Core 6.
 - Microsoft.EntityFrameworkCore.Tools
 - Swashbuckle.AspNetCore
 - Swashbuckle.Core
+- Moq

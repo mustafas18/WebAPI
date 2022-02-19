@@ -18,7 +18,10 @@ namespace WebAPI.Controllers
         {
             _userService = userService;
         }
-
+        /// <summary>
+        /// List all users
+        /// </summary>
+        /// <returns></returns>
         [Route("GetUserList")]
         [AllowAnonymous]
         [HttpGet]
@@ -26,6 +29,11 @@ namespace WebAPI.Controllers
         {
             return _userService.GetUserList();
         }
+        /// <summary>
+        /// Find user
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("{id?}")]
         [AllowAnonymous]
         [HttpGet]
@@ -33,6 +41,11 @@ namespace WebAPI.Controllers
         {
             return _userService.GetUser(id);
         }
+        /// <summary>
+        /// Create user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [Route("CreateUser")]
         [AllowAnonymous]
         [HttpPost]
@@ -42,5 +55,19 @@ namespace WebAPI.Controllers
         {
             return await _userService.CreateUser(user); ;
         }
+        /// <summary>
+        /// Edit user
+        /// </summary>
+        /// <param name="userDto"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [Route("EditUser")]
+        [AllowAnonymous]
+        [HttpPut]
+        public async Task<ServiceResponceDTO> EditUser(UserDTO userDto, string userId)
+        {
+            return await _userService.EditUser(userDto, userId);
+        }
+
     }
 }

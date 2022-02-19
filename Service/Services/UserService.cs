@@ -51,6 +51,41 @@ namespace Logic.Services
 
 
         }
+        public async Task<ServiceResponceDTO> EditUser(UserDTO userDto, string userId)
+        {
+            try
+            {
+                var result = _context.Users.Where(x => x.Id == userId).FirstOrDefault();
+                if (result != null)
+                {
+                    var user = await _userManager.FindByIdAsync(userId);
+                    var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    user.UserName = userDto.UserName;
+                    var identityResult = await _userManager.ResetPasswordAsync(user, token, userDto.Password);
+
+                    if (identityResult.Succeeded)
+                    {
+                        return new ServiceResponceDTO { IsSuccessful = identityResult.Succeeded };
+                    }
+                    else
+                    {
+                        return new ServiceResponceDTO { IsSuccessful = false, ErrorMessage = identityResult.Errors.FirstOrDefault().Description };
+                    }
+                }
+                else
+                {
+                    return new ServiceResponceDTO { IsSuccessful = false, ErrorMessage = "The user does not exist." };
+                }
+
+                }
+            catch (Exception ex)
+            {
+                return new ServiceResponceDTO { IsSuccessful = false, ErrorMessage = ex.Message };
+
+            }
+
+
+        }
         /// <summary>
         /// Get 
         /// </summary>
@@ -58,7 +93,7 @@ namespace Logic.Services
         /// <returns></returns>
         public User GetUser(string id)
         {
-            return _context.Users.Where(s=>s.Id==id).FirstOrDefault();
+            return _context.Users.Where(s => s.Id == id).FirstOrDefault();
         }
         /// <summary>
         /// List all users

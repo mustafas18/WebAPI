@@ -9,6 +9,6 @@ namespace Core.DTO
     public class ServiceResponceDTO
     {
         public bool IsSuccessful { get; set; }
-        public string ErrorMessage { get; set; }
+        public string? ErrorMessage { get; set; }
     }
 }
